@@ -5,28 +5,30 @@ import { UserDetailsPage } from '../user-details/user-details';
 
 import { User } from '../../models/user';
 
-import { GithubUsers } from '../../providers/github-users';
+import { Github } from '../../providers/github';
 
 
 @Component({
   selector: 'page-users',
   templateUrl: 'users.html'
 })
-
 export class UsersPage {
   users: User[]
   originalUsers: User[];
 
-  constructor(public navCtrl: NavController, private githubUsers: GithubUsers) {
-    githubUsers.load().subscribe(users => {
+  constructor(
+    public navCtrl: NavController,
+    private github: Github
+  ){
+    github.loadUsers().subscribe(users => {
       this.users = users;
       this.originalUsers = users;
     })
 
   }
 
-  goToDetails(login: string) {
-    this.navCtrl.push(UserDetailsPage, {login});
+  goToDetails(username: string) {
+    this.navCtrl.push(UserDetailsPage, {username});
   }
 
   search(searchEvent) {
@@ -37,7 +39,7 @@ export class UsersPage {
       this.users = this.originalUsers;
     } else {
       // Get the searched users from github
-      this.githubUsers.searchUsers(term).subscribe(users => {
+      this.github.searchUsers(term).subscribe(users => {
         this.users = users
       });
     }

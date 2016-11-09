@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <ion-icon name="logo-github" item-left></ion-icon>
+      <a href="{{ repo?.html_url }}">{{ repo?.owner.login }} / {{ repo?.name }}</a>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h4>{{ repo?.description }}</h4>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col width-50>
+        <ion-icon name="code-working" item-left></ion-icon>
+        {{ repo?.language }}
+      </ion-col>
+      <ion-col width-50>
+        <ion-icon name="cube" item-left></ion-icon>
+        {{ repo?.size }} bytes
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="repo?.homepage">
+      <ion-col>
+        <ion-icon name="home" item-left></ion-icon>
+        <a href="{{ repo.homepage }}">{{ repo.homepage }}</a>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-list>
+    <ion-item>
+      <ion-icon name="git-branch" item-left></ion-icon>
+      <ion-label>Forks</ion-label>
+      <ion-badge item-right>{{ repo?.forks_count }}</ion-badge>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="star" item-left></ion-icon>
+      <ion-label>Stars</ion-label>
+      <ion-badge item-right>{{ repo?.stargazers_count }}</ion-badge>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="eye" item-left></ion-icon>
+      <ion-label>Watchers</ion-label>
+      <ion-badge item-right>{{ repo?.watchers_count }}</ion-badge>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="bug" item-left></ion-icon>
+      <ion-label>Issues</ion-label>
+      <ion-badge item-right>{{ repo?.open_issues_count }}</ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>
